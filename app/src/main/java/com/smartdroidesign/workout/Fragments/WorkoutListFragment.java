@@ -1,6 +1,7 @@
 package com.smartdroidesign.workout.Fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -8,7 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-
+import android.widget.ListView;
+import android.app.Activity;
 import com.smartdroidesign.workout.Classes.Workout;
 import com.smartdroidesign.workout.R;
 
@@ -16,6 +18,14 @@ import com.smartdroidesign.workout.R;
  * A simple {@link Fragment} subclass.
  */
 public class WorkoutListFragment extends ListFragment {
+
+    public static interface WorkoutListListener{
+        void itemClicked(long id);
+    }
+
+    private WorkoutListListener listener;
+
+
 
 
     public WorkoutListFragment() {
@@ -42,4 +52,16 @@ public class WorkoutListFragment extends ListFragment {
 
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.listener = (WorkoutListListener)context;
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        if(listener != null){
+            listener.itemClicked(id);
+        }
+    }
 }
