@@ -2,6 +2,7 @@ package com.smartdroidesign.workout.Fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,15 @@ public class WorkoutDetailFragment extends Fragment {
     private long workoutId; // the id of the workout the user chooses
 
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState != null){
+            workoutId = savedInstanceState.getLong("workoutId");
+
+        }
+    }
+
     public WorkoutDetailFragment() {
         // Required empty public constructor
     }
@@ -30,6 +40,12 @@ public class WorkoutDetailFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_workout_detail, container, false);
 
         }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putLong("workoutId",workoutId);
+    }
 
     @Override
     public void onStart() {
